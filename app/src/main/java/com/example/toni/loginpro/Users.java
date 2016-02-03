@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 public class Users extends AppCompatActivity {
@@ -19,14 +20,12 @@ public class Users extends AppCompatActivity {
         tv1 = (TextView) findViewById(R.id.tv1);
 
         loginHelper = new LoginHelper(this, "usuarios", null, 1);
-        SQLiteDatabase bd = loginHelper.getWritableDatabase();
 
         Cursor fila = loginHelper.getAllPlayers();
 
         if(fila.moveToFirst()) {
-            tv1.setText(fila.getString(fila.getColumnIndex("nick")));
-            tv1.setText("\n");
-            tv1.setText("hola");
+            Log.v("act","first one : " + fila.getString(fila.getColumnIndex("nick")));
+            tv1.setText(fila.getString(fila.getColumnIndex("nick")) + "\n" + "hola");
         }
     }
 }

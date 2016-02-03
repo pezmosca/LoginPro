@@ -3,8 +3,10 @@ package com.example.toni.loginpro;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 /**
  * Created by Toni on 02/02/2016.
@@ -26,7 +28,7 @@ public class LoginHelper extends SQLiteOpenHelper {
     }
 
     public Cursor getAllPlayers() {
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
         /*Cursor c = db.rawQuery("select nick from jugadores", null);
         return c;*/
 
@@ -40,12 +42,12 @@ public class LoginHelper extends SQLiteOpenHelper {
                 null,
                 null
         );
-
+        DatabaseUtils.dumpCursor(c);
         return c;
     }
 
     public Cursor getAllPlayersPunt() {
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery("select nick, puntuacion from " + PLAYERS_TABLE, null);
         return c;
     }
@@ -53,6 +55,7 @@ public class LoginHelper extends SQLiteOpenHelper {
     public void createPlayer(ContentValues values, String tableName) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(tableName, null, values);
+        db.close();
     }
 
     @Override
