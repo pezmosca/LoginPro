@@ -27,7 +27,20 @@ public class LoginHelper extends SQLiteOpenHelper {
 
     public Cursor getAllPlayers() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor c = db.rawQuery("select nick from " + PLAYERS_TABLE, null);
+        /*Cursor c = db.rawQuery("select nick from jugadores", null);
+        return c;*/
+
+        String[] columns = {"nick"};
+        Cursor c = db.query(
+                PLAYERS_TABLE,
+                columns,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+
         return c;
     }
 
